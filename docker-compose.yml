@@ -1,0 +1,41 @@
+#    __          .__
+#    _______/  |_ ___.__.|  |_______
+#    \____ \   __<   |  ||  |\_  __ \
+#    |  |_> >  |  \___  ||  |_|  | \/
+#    |   __/|__|  / ____||____/__|
+#    |__|         \/
+#
+#    https://ptylr.com
+#    https://www.linkedin.com/in/ptylr/
+
+services:
+  wordpress:
+    image: wordpress:php8.2-apache
+    container_name: wordpress-app
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: $WORDPRESS_DB_HOST
+      WORDPRESS_DB_NAME: $WORDPRESS_DB_NAME
+      WORDPRESS_DB_USER: $WORDPRESS_DB_USER
+      WORDPRESS_DB_PASSWORD: $WORDPRESS_DB_PASSWORD
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.6
+    container_name: wordpress-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  wordpress_data:
+  db_data:
