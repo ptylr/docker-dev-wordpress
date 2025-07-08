@@ -92,3 +92,5 @@ public/sitemap.xml
 *.env
 .env.*
 !.env.example
+
+ngrok.yml
